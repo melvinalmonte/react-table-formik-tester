@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import UserTable from "./UserTable";
+import users from "./users.json";
+import { Button } from "@chakra-ui/button";
+import { Box } from "@chakra-ui/layout";
 
 function App() {
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "First Name",
+        accessor: "firstName",
+      },
+      {
+        Header: "Last Name",
+        accessor: "lastName",
+      },
+      {
+        Header: "Gender",
+        accessor: "gender",
+      },
+      {
+        Header: "Phone",
+        accessor: "phone",
+      },
+      {
+        Header: "Email",
+        accessor: "email",
+      },
+      {
+        Header: "Company",
+        accessor: "company",
+      },
+      {
+        Header: "Sync",
+        accessor: (rows) => (
+          <Button onClick={() => console.log("ROWS: ", rows)}>Sync</Button>
+        ),
+      },
+    ],
+    []
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box pr="10rem" pl="10rem">
+      <UserTable data={users} columns={columns} />
+    </Box>
   );
 }
 
